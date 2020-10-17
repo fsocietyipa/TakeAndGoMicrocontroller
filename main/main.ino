@@ -3,8 +3,8 @@
 
 HX711 scale;
 
-float calibration_factor = -8.85; // this calibration factor is adjusted according to my load cell
-float offset = 30000;
+float calibration_factor = -8.55; // this calibration factor is adjusted according to my load cell
+float offset = -177000;
 float units;
 float ounces;
 
