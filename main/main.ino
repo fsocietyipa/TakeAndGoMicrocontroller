@@ -1,35 +1,58 @@
 
 #include "HX711.h"
 
-HX711 scale;
+struct ScaleData {
+  float calibrationFactor;
+  float offset;
+  int sckPin;
+  int dtPin;
+  float units;
+  float ounces;
+  HX711 scale;
+};
 
-float calibration_factor = -8.55; // this calibration factor is adjusted according to my load cell
-float offset = -177000;
-float units;
-float ounces;
+ScaleData scalesArray [5] = {
+  { -8.55, -172000, 6, 5, 0, 0 },
+  { -8.8, -30000, 11, 10, 0, 0 }, 
+  { -8.48, -281000, A0, A1, 0, 0 },
+  { -8.97, -135000, A4, A5, 0, 0 }, 
+  { -8.75, -218000, A2, A3, 0, 0 }
+};
 
 void setup() {
   Serial.begin(9600); 
-  scale.begin(A1, A0);  // DT, CLK
-  scale.set_scale();
-  scale.tare();    // resetting value to 0
-  scale.set_scale(calibration_factor);  // setting calibration
-  scale.set_offset(offset);
-
-
+  for (int i = 0; i < 5; i++) {
+    ScaleData scaleElement = scalesArray[i];
+    scaleElement.scale.begin(scaleElement.dtPin, scaleElement.sckPin);
+    scaleElement.scale.set_scale();
+    scaleElement.scale.tare();    // resetting value to 0
+    scaleElement.scale.set_scale(scaleElement.calibrationFactor);  // setting calibration
+    scaleElement.scale.set_offset(scaleElement.offset);
+    scalesArray[i] = scaleElement;
+  }
 }
 
 void loop() { 
-  Serial.print("Reading: ");
-  /* taking average value of 10 measuerments */
-  for(int i = 0;i < 10; i ++) {
-    units =+ scale.get_units(), 10; 
+  /* loop to read average value */
+  for (int i = 0; i < 5; i++) {
+    ScaleData scaleElement = scalesArray[i];
+    /* taking average value of 10 measuerments */
+    for(int i = 0; i < 10; i++) {
+      scaleElement.units =+ scaleElement.scale.get_units(), 10; 
+    }
+    scaleElement.units / 10;   
+    scaleElement.ounces = scaleElement.units * 0.035274;    // converting ounces to gramms             
+    scalesArray[i] = scaleElement;
   }
-  units / 10;   
-   
-  ounces = units * 0.035274;    // converting ounces to gramms             
-  Serial.print(ounces);         // printing value
-  Serial.print(" grams");  
+  /* loop to print scale values */
+  for (int i = 0; i < 5; i++) {
+    ScaleData scaleElement = scalesArray[i];
+    Serial.print("index ");
+    Serial.print(i);
+    Serial.print(": ");
+    Serial.print(scaleElement.ounces);         // printing value
+    Serial.print(" grams, ");  
+  }
   Serial.println();
- 
+
 }

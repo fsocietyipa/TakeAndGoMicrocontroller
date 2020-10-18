@@ -1,0 +1,29 @@
+0:
+cFactor: -8.55
+offset: -172000
+sck: D6
+dt: D5
+
+1:
+cFactor: -8.8
+offset: -30000
+sck: D11
+dt: D10
+
+2:
+cFactor: -8.48
+offset: -281000
+sck: A0
+dt: A1
+
+3:
+cFactor: -8.97
+offset: -135000
+sck: A4
+dt: A5
+
+4:
+cFactor: -8.75
+offset: -218000
+sck: A2
+dt: A3

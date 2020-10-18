@@ -3,7 +3,7 @@
 
 HX711 scale;
 
-float calibration_factor = -8.55; // this calibration factor is adjusted according to my load cell
+float calibration_factor = -9.47; // this calibration factor is adjusted according to my load cell
 float units;
 float ounces;
 
@@ -15,7 +15,7 @@ void setup() {
   Serial.println("Press + or a to increase calibration factor");
   Serial.println("Press - or z to decrease calibration factor");
 
-  scale.begin(A1, A0);  // DT, CLK
+  scale.begin(A5, A4);  // DT, CLK
   scale.set_scale();
   scale.tare();  //Reset the scale to 0
 
