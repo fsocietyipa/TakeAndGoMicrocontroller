@@ -1,4 +1,3 @@
-
 #include "HX711.h"
 
 struct ScaleData {
@@ -7,13 +6,13 @@ struct ScaleData {
   int sckPin;
   int dtPin;
   float units;
-  float ounces;
+  float grams;
   HX711 scale;
 };
 
 int scalesAmount = 5;
 
-ScaleData scalesArray [scalesAmount] = {
+ScaleData scalesArray [5] = {
   { -8.55, -172000, 6, 5, 0, 0 },
   { -8.8, -30000, 11, 10, 0, 0 }, 
   { -8.48, -281000, A0, A1, 0, 0 },
@@ -38,23 +37,21 @@ void loop() {
   /* loop to read average value */
   for (int i = 0; i < scalesAmount; i++) {
     ScaleData scaleElement = scalesArray[i];
-    /* taking average value of 10 measuerments */
-    for(int i = 0; i < 10; i++) {
+    /* taking average value of 5 measurements */
+    for (int i = 0; i < 5; i++) {
       scaleElement.units =+ scaleElement.scale.get_units(), 10; 
     }
-    scaleElement.units / 10;   
-    scaleElement.ounces = scaleElement.units * 0.035274;    // converting ounces to gramms             
+    scaleElement.units / 5;   
+    scaleElement.grams = scaleElement.units * 0.035274;    // converting ounces to gramms             
     scalesArray[i] = scaleElement;
   }
   /* loop to print scale values */
   for (int i = 0; i < scalesAmount; i++) {
     ScaleData scaleElement = scalesArray[i];
-    Serial.print("index ");
-    Serial.print(i);
-    Serial.print(": ");
-    Serial.print(scaleElement.ounces);         // printing value
-    Serial.print(" grams, ");  
-  }
+    Serial.print(scaleElement.grams);         // printing value
+    if (i != scalesAmount-1) {
+      Serial.print(";");
+    }  }
   Serial.println();
 
 }
