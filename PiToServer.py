@@ -3,7 +3,7 @@ import serial
 import requests
 
 def sendToApi(valueArray):
-    req = requests.post('http://httpbin.org/post', json={"scales": valueArray})
+    req = requests.post('http://192.168.1.192/post', json={"scales": valueArray})
     print(req.status_code)
 
 if __name__ == '__main__':

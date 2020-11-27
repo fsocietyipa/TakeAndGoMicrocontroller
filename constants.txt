@@ -27,3 +27,27 @@ cFactor: -8.75
 offset: -218000
 sck: A2
 dt: A3
+
+5:
+cFactor: -8.52
+offset: -233000
+sck: D2
+dt: D3
+
+6:
+cFactor: -8.74
+offset: -54000
+sck: D9
+dt: D8
+
+7:
+cFactor: -8.52
+offset: -263000
+sck: D13
+dt: D12
+
+8:
+cFactor: -8.74
+offset: -650000
+sck: D4
+dt: D7

@@ -15,7 +15,7 @@ void setup() {
   Serial.println("Press + or a to increase calibration factor");
   Serial.println("Press - or z to decrease calibration factor");
 
-  scale.begin(A5, A4);  // DT, CLK
+  scale.begin(7, 4);  // DT, CLK
   scale.set_scale();
   scale.tare();  //Reset the scale to 0
 
