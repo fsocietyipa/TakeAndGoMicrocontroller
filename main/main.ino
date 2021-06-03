@@ -42,10 +42,10 @@ void loop() {
   for (int i = 0; i < scalesAmount; i++) {
     ScaleData scaleElement = scalesArray[i];
     /* taking average value of 5 measurements */
-    for (int i = 0; i < 5; i++) {
+//    for (int i = 0; i < 5; i++) {
       scaleElement.units =+ scaleElement.scale.get_units(), 10; 
-    }
-    scaleElement.units / 5;   
+//    }
+//    scaleElement.units / 5;   
     scaleElement.grams = scaleElement.units * 0.035274;    // converting ounces to gramms             
     scalesArray[i] = scaleElement;
   }
